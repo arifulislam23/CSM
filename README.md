@@ -11,4 +11,4 @@
   <h2>Database Backup</h2>
   <p>If you need to restore the database, you can find the backup files in the "Database Backup Files" folder.</p>
 
-  <p>Feel free to contact us if you have any questions or encounter any issues. Thank you for using our application!</p>
+  <p>Feel free to contact if you have any questions or encounter any issues. Thank you!</p>
