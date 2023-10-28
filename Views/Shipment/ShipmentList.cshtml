@@ -1,0 +1,88 @@
+﻿@using CSM.ViewModels;
+@model ShipmentListVM
+<style>
+    .fixed-button-container {
+        position: fixed;
+        bottom: 10px; 
+        right: 10px; 
+    }
+
+</style>
+
+
+<div class="card-header d-flex justify-content-between">
+    <div>
+        <i class="fas fa-table me-1"></i>
+        Unshipped Orders
+    </div>
+    <div class="form-group bg-info">
+        <form asp-controller="Shipment" asp-action="ShipmentList" method="get" class="input-group input-group-lg">
+            <partial name="_Search" />
+        </form>
+    </div>
+</div>
+<form asp-action="UpdateStatus" method="post">
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Parcel Information</th>
+                <th>Recipient Information</th>
+                <th>Shipper Information</th>
+                <th>Track Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shipment in Model.Shipments)
+            {
+                <tr>
+                    <td>
+                        Parcel Type: @shipment.Parcel?.ParcelType<br />
+                        Recived At: @shipment.Parcel?.CreateAt.ToString("dd-MMM-yy")<br />
+                        Weight: @shipment.Parcel?.Weight<br />
+                        Description: @shipment.Parcel?.Description
+                    </td>
+                    <td>
+                        Name: @shipment.Recipient?.Name<br />
+                        Mobile Number: @shipment.Recipient?.MobileNumber<br />
+                        Address: @shipment.Recipient?.Address
+                    </td>
+                    <td>
+                        Name: @(shipment.EmployeId != null ? Model.Employees.FirstOrDefault(e => e.EmployeId == shipment.EmployeId)?.Name : "")
+                        <br />
+                        Mobile Number: @(shipment.EmployeId != null ? Model.Employees.FirstOrDefault(e => e.EmployeId == shipment.EmployeId)?.Phone : "")
+                        <br />
+                        Delivery At: @shipment.DeliveryAt?.ToString("dd-MMM-yy")
+                    </td>
+                    <td>
+                        @shipment.TrackNumber
+                    </td>
+                    <td>
+                        <input type="checkbox" name="SelectedShipmentIds" value="@shipment.ShipmentId" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="fixed-button-container">
+        <button type="submit" class="btn btn-primary">
+            <span id="checkedCount">0</span>
+             Mark as Completed</button>
+    </div>
+
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const checkedCount = document.getElementById('checkedCount');
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                checkedCount.textContent = checkedCheckboxes.length;
+            });
+        });
+    });
+</script>

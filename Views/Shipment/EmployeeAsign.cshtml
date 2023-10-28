@@ -1,0 +1,89 @@
+﻿@using CSM.DataModels;
+@using CSM.ViewModels;
+@model EmployeeAsignVM
+@{
+    Layout = "_Layout";
+}
+
+<br />
+<div class="card-header d-flex justify-content-between">
+    <div>
+        <i class="fas fa-table me-1"></i>
+        Employee Assign
+    </div>
+    <div class="form-group bg-info">
+        <form asp-controller="Shipment" asp-action="EmployeeAsign" method="get" class="input-group input-group-lg">
+            <partial name="_Search" />
+        </form>
+    </div>
+</div>
+<form asp-action="EmployeeAsign" method="post">
+    <div class="container">
+        <!-- Date and Employee Selection Section -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="SelectedDate">Select Delivery Date</label>
+                    <input asp-for="SelectedDate" class="form-control" value="@DateTime.Today" type="date" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="SelectedEmployeeId">Select Employee:</label>
+                    <select asp-for="SelectedEmployeeId" asp-items="new SelectList(Model.Employees, nameof(Employe.EmployeId), nameof(Employe.Name))" class="form-control">
+                        <option value="">-- Select Employee --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary mt-4">Assign Shipments</button>
+            </div>
+        </div>
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <!-- Parcel Selection Section -->
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Track Number</th>
+                            
+                            <th>Parcel Info</th>
+                            <th>Recipient Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var shipment in Model.Shipments)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="SelectedShipmentIds" value="@shipment.ShipmentId" /> @shipment.TrackNumber
+                                        </label>
+                                    </div>
+                                </td>
+                               
+                                <td>
+                                    Parcel Type: @shipment.Parcel.ParcelType<br />
+                                    Recived At: @shipment.Parcel.CreateAt.ToString("dd-MMM-yy")<br />
+                                    Weight: @shipment.Parcel.Weight<br />
+                                    Description: @shipment.Parcel.Description
+                                </td>
+                                <td>
+                                    Name: @shipment.Recipient.Name<br />
+                                    Mobile Number: @shipment.Recipient.MobileNumber<br />
+                                    Address: @shipment.Recipient.Address
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+

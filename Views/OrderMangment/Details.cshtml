@@ -1,0 +1,103 @@
+﻿@model CSM.DataModels.Shipment
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .invoice {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .invoice h4 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .invoice hr {
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+
+        .invoice dl {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .invoice dt, .invoice dd {
+            width: 50%;
+            padding: 10px;
+        }
+
+        .invoice dt {
+            font-weight: bold;
+        }
+
+        .invoice dd {
+            border-bottom: 1px solid #ccc;
+        }
+</style>
+
+<div class="invoice">
+    <h4>Shipment Details / Invoice</h4>
+    <hr>
+    <dl>
+        <dt>Track Number/Invoice</dt>
+        <dd>@Html.DisplayFor(model => model.TrackNumber)</dd>
+
+        <dt>Status</dt>
+        <dd>@Html.DisplayFor(model => model.Status)</dd>
+
+        <dt>Delivery Date</dt>
+        <dd>@Html.DisplayFor(model => model.DeliveryAt)</dd>
+
+        <dt>Customer Name</dt>
+        <dd>@Html.DisplayFor(model => model.Customer.Name)</dd>
+
+        <dt>Customer Phone</dt>
+        <dd>@Html.DisplayFor(model => model.Customer.MobileNumber)</dd>
+
+        <dt>Customer Address</dt>
+        <dd>@Html.DisplayFor(model => model.Customer.Address)</dd>
+
+        <dt>Parcel Type</dt>
+        <dd>@Html.DisplayFor(model => model.Parcel.ParcelType)</dd>
+
+        <dt>Price</dt>
+        <dd>@Html.DisplayFor(model => model.Parcel.Price)</dd>
+
+        <dt>Weight</dt>
+        <dd>@Html.DisplayFor(model => model.Parcel.Weight)</dd>
+
+        <dt>Description</dt>
+        <dd>@Html.DisplayFor(model => model.Parcel.Description)</dd>
+
+        <dt>Recipient Name</dt>
+        <dd>@Html.DisplayFor(model => model.Recipient.Name)</dd>
+
+        <dt>Recipient Phone</dt>
+        <dd>@Html.DisplayFor(model => model.Recipient.MobileNumber)</dd>
+
+        <dt>Recipient Address</dt>
+        <dd>@Html.DisplayFor(model => model.Recipient.Address)</dd>
+
+        <dt>Shipper</dt>
+        <dd>@Html.DisplayFor(model => model.Shipper.Name)</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="UpdateOrder" asp-route-id="@Model?.ShipmentId" class="btn btn-sm btn-primary">Edit</a>
+    <a asp-action="OrdersList" class="btn btn-sm btn-secondary">Back to List</a>
+</div>
+

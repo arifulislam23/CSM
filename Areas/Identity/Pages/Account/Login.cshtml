@@ -1,0 +1,36 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "_HomeLayout";
+}
+
+
+<div class="row justify-content-center col-md-8">
+    <section>
+        <form id="account" method="post">
+            <h2>Only Admin log in</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-floating">
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <input asp-for="Input.Email" class="form-control" placeholder="Email" autocomplete="username" aria-required="true" />
+
+            </div>
+            <br />
+            <div class="form-floating">
+                <span asp-validation-for="Input.Password"></span>
+                <input asp-for="Input.Password" class="form-control" placeholder="Password" autocomplete="current-password" aria-required="true" />
+            </div>
+            <br />
+            <div>
+                <button id="login-submit" type="submit" class="common-btn w-100 btn btn-lg btn-primary">Log in</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

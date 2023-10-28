@@ -1,0 +1,72 @@
+﻿
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.PagedList<CSM.DataModels.Shipment>
+
+@{
+    ViewData["Title"] = "Consignment List";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<br />
+<div class="card-header d-flex justify-content-between">
+    <div>
+        <i class="fas fa-table me-1"></i>
+        Consignment List
+    </div>
+    <div class="form-group bg-info">
+        <form asp-controller="Reports" asp-action="ConsignmentList" method="get" class="input-group input-group-lg">
+            <partial name="_Search" />
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Parcel Info</th>
+            <th>Recipient Info</th>
+            <th>Customer Info</th>
+            <th>Shipper Info</th>
+            <th>Price</th>
+            <th>Track Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shipment in Model)
+        {
+            <tr>
+                <td>@shipment.ShipmentId</td>
+                <td>
+                    Parcel Type: @shipment.Parcel?.ParcelType<br />
+                    Recived At: @shipment.Parcel?.CreateAt.ToString("dd-MMM-yy")<br />
+                    Weight: @shipment.Parcel?.Weight KG<br />
+                    Desc: @shipment.Parcel?.Description
+                </td>
+                <td>
+                    Name: @shipment.Recipient?.Name<br />
+                    Mobile Number: @shipment.Recipient?.MobileNumber<br />
+                    Address: @shipment.Recipient?.Address
+                </td>
+                <td>
+                    Name: @shipment.Customer?.Name<br />
+                    Mobile Number: @shipment.Customer?.MobileNumber<br />
+                    Address: @shipment.Customer?.Address<br />
+                    
+                </td>
+                <td>
+                    Name: @shipment.Shipper?.Name<br />
+                    Mobile Number: @shipment.Shipper?.Phone<br />
+                    Delivery At: @shipment.DeliveryAt?.ToString("dd-MMM-yy")<br />
+                    Status: @shipment.Status
+                </td>
+                <td>
+                    @shipment.Parcel?.Price BDT
+                </td>
+                <td>
+                    @shipment.TrackNumber
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_pagination" />

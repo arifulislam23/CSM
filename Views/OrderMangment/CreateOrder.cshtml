@@ -1,0 +1,139 @@
+﻿@using CSM.ViewModels;
+@model CourierVM
+@{
+    Layout = "_Layout";
+}
+<style>
+    .form-control {
+        background-color: #f9e8bd
+    }
+</style>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card card-info">
+            <div class="card-header">
+                Informations
+            </div>
+            <form method="post" id="myForm">
+                <div class="card-body">
+                    <!--Customer Informations-->
+                    <div class="form-row row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Customer.MobileNumber">Customer Mobile Number</label>
+                            <input asp-for="Customer.MobileNumber" type="number" asp-for="Customer.MobileNumber" id="mobileNumberInput" class="form-control" placeholder="Sender Mobile Number">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Customer.Name">Customer Name</label>
+                            <input asp-for="Customer.Name" id="customerNameInput" class="form-control" placeholder="Customer Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Customer.Address">Customer Address</label>
+                        <textarea asp-for="Customer.Address" asp-for="Customer.Address" id="customerAddressInput" type="text" class="form-control" placeholder="Customer Address"></textarea>
+                    </div>
+                    <!--Recipient Informations-->
+                    <div class="form-row row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Recipient.MobileNumber">Recipient Mobile Number</label>
+                            <input asp-for="Recipient.MobileNumber" type="number" class="form-control" placeholder="Recipient Mobile Number">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Recipient.Name">Recipient Name</label>
+                            <input asp-for="Recipient.Name" class="form-control" multiple placeholder="Recipient Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Recipient.Address">Recipient Address</label>
+                        <textarea asp-for="Recipient.Address" type="text" class="form-control" placeholder="Recipient Address"></textarea>
+                    </div>
+                    <!--Parcel Informations-->
+                    <div class="form-row row">
+                        <div class="form-group col-md-6">
+                            <label for="ParcelType">Parcel Type</label>
+                            <select asp-for="Parcel.ParcelType" id="ParcelType" class="form-control">
+                                <option value="Light">Light</option>
+                                <option value="Heavy">Heavy</option>
+                                <option value="Liquid">Liquid</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label asp-for="Parcel.Weight">Parcel Weight</label>
+                            <input asp-for="Parcel.Weight" type="number" id="ParcelWeight" class="form-control" placeholder="Parcel Weight (KG)">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label asp-for="Parcel.Price">Total Cost Amount</label>
+                            <input asp-for="Parcel.Price" id="ParcelCost" class="form-control" readonly placeholder="Costing (TK)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Parcel.Description">Description/Comments</label>
+                        <textarea asp-for="Parcel.Description" id="Description" class="form-control" placeholder="If any Comments"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" disabled id="submitButton" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        
+        $('form input, form textarea, form select').on('input', function () {
+            var enableSubmit = $('form input, form textarea, form select').filter(function () {
+                return $(this).val().trim() === "";
+            }).length === 0;
+            $('#submitButton').prop('disabled', !enableSubmit);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+
+        var mobileNumberInput = document.getElementById('mobileNumberInput');
+
+        mobileNumberInput.addEventListener('input', function () {
+            var mobileNumber = mobileNumberInput.value;
+
+            $.ajax({
+                url: '@Url.Action("Customerinfo", "OrderMangment")',
+                type: 'POST',
+                data: { mobileNumber: mobileNumber },
+                success: function (data) {
+                    $('#customerNameInput').val(data.name);
+                    $('#customerAddressInput').val(data.address);
+                    $('#customerId').val(data.customerId);
+                },
+                error: function (error) {
+
+                    console.error('error:', error);
+                }
+            });
+        });
+
+        var parcelWeightInput = document.getElementById('ParcelWeight');
+
+        parcelWeightInput.addEventListener('input', function () {
+            var parcelWeight = parcelWeightInput.value;
+
+            debugger;
+            $.ajax({
+                url: '@Url.Action("GetPrice", "PriceMangment")',
+                type: 'POST',
+                data: { parcelWeight: parcelWeight },
+                success: function (data) {
+                    $('#ParcelCost').val(data.amount);
+                },
+                error: function (error) {
+
+                    console.error('error:', error);
+                }
+            });
+        });
+    });
+</script>

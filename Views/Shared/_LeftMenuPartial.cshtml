@@ -1,0 +1,80 @@
+﻿
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Core</div>
+                <a class="nav-link" asp-action="Index" asp-controller="Admin">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+                <div class="sb-sidenav-menu-heading">Order Mangment</div>
+                <a class="nav-link" asp-action="CreateOrder" asp-controller="OrderMangment">
+                    <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
+                    Take New Order
+                </a>
+
+                <a class="nav-link" asp-action="OrdersList" asp-controller="OrderMangment">
+                    <div class="sb-nav-link-icon"><i class="fas fa-truck"></i></div>
+                    Orders
+                </a>
+                <a class="nav-link" asp-action="ShipmentList" asp-controller="Shipment">
+                    <div class="sb-nav-link-icon"><i class="fas fa-truck"></i></div>
+                    Shipments
+                </a>
+
+                <a class="nav-link" asp-action="EmployeeAsign" asp-controller="Shipment">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-plus"></i></div>
+                    Assign to Employee
+                </a>
+                <a class="nav-link" asp-action="Index" asp-controller="PriceMangment">
+                    <div class="sb-nav-link-icon"><i class="fas fa-dollar"></i></div>
+                    Price Mangment
+                </a>
+                <div class="sb-sidenav-menu-heading">Employee mangment</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#empLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Employees
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse @(IsEmpLayoutsExpanded() ? "show" : "")" id="empLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" asp-action="Create" asp-controller="EmployeMangment">Create New</a>
+                        <a class="nav-link" asp-action="Index" asp-controller="EmployeMangment">All Employes</a>
+                    </nav>
+                </div>
+                <div class="sb-sidenav-menu-heading">Reports</div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#reportLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Reports
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse @(IsReportsExpanded() ? "show" : "")" id="reportLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link " asp-action="ConsignmentList" asp-controller="Reports">All Consignment</a>
+                        <a class="nav-link " asp-action="CustomerList" asp-controller="Reports">All Customer</a>
+                        <a class="nav-link " asp-action="Index" asp-controller="EmployeMangment">All Shipper</a>
+                        <a class="nav-link " asp-action="OrdersList" asp-controller="OrderMangment">Pickup</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+</div>
+
+
+@functions {
+    public bool IsReportsExpanded() =>
+        string.Equals(ViewContext.RouteData.Values["controller"]?.ToString(), "Reports", StringComparison.OrdinalIgnoreCase) &&
+        (string.Equals(ViewContext.RouteData.Values["action"]?.ToString(), "ConsignmentList", StringComparison.OrdinalIgnoreCase) ||
+         string.Equals(ViewContext.RouteData.Values["action"]?.ToString(), "CustomerList", StringComparison.OrdinalIgnoreCase));
+
+
+}
+@functions {
+    public bool IsEmpLayoutsExpanded() =>
+        string.Equals(ViewContext.RouteData.Values["controller"]?.ToString(), "EmployeMangment", StringComparison.OrdinalIgnoreCase) &&
+        (string.Equals(ViewContext.RouteData.Values["action"]?.ToString(), "Create", StringComparison.OrdinalIgnoreCase) ||
+         string.Equals(ViewContext.RouteData.Values["action"]?.ToString(), "Index", StringComparison.OrdinalIgnoreCase));
+}

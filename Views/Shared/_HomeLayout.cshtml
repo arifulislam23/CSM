@@ -1,0 +1,68 @@
+﻿
+<!doctype html>
+
+<html lang="en-US" class="no-js no-svg">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Courier Management System</title>
+    <link href="~/css/homestyle.css" rel="stylesheet" type='text/css' media='all' />
+
+</head>
+<body class="page-39 page-tracking">
+    <header class="header">
+        <nav class="navbar navbar-common">
+            <div class="container">
+                <a class="navbar-brand">
+                    <img src="https://made-in-bd.com/assets/images/Piistech_ltd_logo.png" alt="Best courier and parcel delivery service in Bangladesh">
+                   
+                </a>
+                <nav class="navbar navbar-expand-lg">
+                    <div class="">
+                        <ul class="navbar-nav mr-auto">
+                            <li id="menu-item"><a asp-action="Index" asp-controller="Home" asp-area="">Home</a></li>
+                            <li id="menu-item-2303"><a asp-action="Index" asp-controller="Home" asp-area="" aria-current="page">Tracking</a></li>
+                            <li class="menu-login"><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </nav>
+    </header>
+    <main role="main">
+        <section class="track">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-8">
+        @RenderBody()
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-9">
+                    </div>
+                </div>
+            </div>
+            <div class="skew-box be-animated"><span class="circle"></span></div>
+        </section>
+
+    </main>
+    <section class="track-app be-animated">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6 text-center">
+                    <h3>Interested to know more?</h3>
+                    <p>If you are looking for a complete logistics solution for your brand don’t hesitate to get in touch with us. We are looking forward to answering any queries that you have regarding our services.</p>
+                    <a class="btn-link" href="https://github.com/arifulislam23">contact us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

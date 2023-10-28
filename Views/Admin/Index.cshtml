@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order Management - Create Order </h2>
+<ul>
+    <li>User input: Customer mobile number.</li>
+    <li>
+        Check if customer data exists:
+        <ul>
+            <li>If yes, automatically fill in customer name and address fields.</li>
+            <li>If no, prompt the user to complete the form to store new customer information.</li>
+            <li>Update customer information if any changes are detected.</li>
+        </ul>
+    </li>
+    <li>User input: Parcel weight.</li>
+    <li>Use a price management system to calculate the order amount based on weight.</li>
+    <li>Enable the submit button when all required input fields are filled.</li>
+    <li>Status => Pending.</li>
+    
+</ul>
+<h2>Employee Assignment</h2>
+<p>Assign an employee for parcel delivery:</p>
+<ul>
+    <li>Select the desired delivery date for the shipment.</li>
+    <li>Choose an employee who will deliver the parcel from the list.</li>
+    <li>View all parcels for the selected date and employee:</li>
+    <li>Check all parcels that the selected employee will deliver.</li>
+    <li>Click the submit button to confirm the assignments.</li>
+    <li>One employee can be assigned to deliver multiple parcels.</li>
+    <li>Status => On The Way.</li>
+</ul>
+
+<h2>Update Parcel Status - Shipments</h2>
+<p>Update the status of parcels when they are delivered:</p>
+<ul>
+    <li>When a shipper successfully delivers a parcel:</li>
+    <ul>
+        <li>Go to the "Shipments" section.</li>
+        <li>Find the parcel in the list.</li>
+        <li>Check the checkbox next to the parcel that was delivered.</li>
+        <li>Click the "Mark as Completed" button.</li>
+        <li>The status of the selected parcel will be updated to "Completed".</li>
+    </ul>
+    <li>Admin can mark any parcel as completed:</li>
+    <ul>
+        <li>Go to the "Shipments" section.</li>
+        <li>Find the parcel in the list.</li>
+        <li>Check the checkbox next to the parcel to be marked as completed.</li>
+        <li>Click the "Mark as Completed" button.</li>
+        <li>The status of the selected parcel will be updated to "Completed".</li>
+    </ul>
+</ul>

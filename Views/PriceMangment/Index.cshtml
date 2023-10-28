@@ -1,0 +1,118 @@
+﻿@using CSM.DataModels;
+@model List<Price>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Price List";
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-info">
+            <div class="card-header">
+                Create New
+            </div>
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["Message"]
+                </div>
+            }
+
+            <form method="post" id="createForm">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Weight From</label>
+                        <input name="weightFrom" class="form-control" id="weightFrom" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Weight To</label>
+                        <input name="weightTo" class="form-control" id="weightTo" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Price Amount</label>
+                        <input name="Amount" class="form-control" id="Amount" />
+                    </div>
+                    <input hidden name="PriceId" id="PriceId" />
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card card-info">
+            <div class="card-header">
+                Price List
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Price ID</th>
+                            <th>Weight From</th>
+                            <th>Weight To</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var price in Model ?? Enumerable.Empty<Price>())
+                        {
+                            <tr>
+                                <td>@price.PriceId</td>
+                                <td>@price.weightFrom</td>
+                                <td>@price.weightTo</td>
+                                <td>@price.Amount</td>
+                                <td>
+                                    <button data-priceid="@price.PriceId"
+                                            data-weightfrom="@price.weightFrom"
+                                            data-weightto="@price.weightTo"
+                                            data-amount="@price.Amount"
+                                            class="btn btn-primary update-btn"
+                                            type="button">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".update-btn").click(function () {
+            var priceid = $(this).data("priceid");
+            var weightFrom = $(this).data("weightfrom");
+            var weightTo = $(this).data("weightto");
+            var Amount = $(this).data("amount");
+            $("#weightFrom").val(weightFrom);
+            $("#weightTo").val(weightTo);
+            $("#Amount").val(Amount);
+            $("#PriceId").val(priceid);
+           
+        });
+
+    });
+</script>
+
+
+@if (ViewBag.msg != null)
+{
+    <script>
+        alert("@ViewBag.msg");
+    </script>
+
+}
+
+

@@ -1,0 +1,67 @@
+﻿@using CSM.ViewModels;
+@model IEnumerable<CustomerVM>
+
+@{
+    ViewData["Title"] = "Customer List";
+    Layout = "_Layout";
+}
+<br />
+<div class="card-header d-flex justify-content-between">
+    <div>
+        <i class="fas fa-table me-1"></i>
+        Customer List
+    </div>
+    <div class="form-group bg-info">
+        <form asp-controller="Reports" asp-action="CustomerList" method="get" class="input-group input-group-lg">
+            <input type="search" class="form-control form-control-md" name="searchInput" placeholder="Search..">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-lg btn-default" id="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <div class="card card-info">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Mobile Number
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>Number of orders<//th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer.MobileNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalOrders)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <partial name="_pagination" />
+</div>
